@@ -1,4 +1,4 @@
-open System
+﻿open System
 open System.Windows.Forms
 open System.Drawing
 
@@ -15,8 +15,22 @@ type Book = {
 // Define a library as a map of books by their ID
 let mutable library: Map<int, Book> = Map.empty
 
-
+// Logic Functions
 let generateBookId () =
-    // Generate a random 7 digit number for id
+    // Generate a random 7 digit number for id 
     let random = new Random()
     random.Next(1000000, 10000000)
+
+let addBook title author genre =
+    let bookId = generateBookId()
+    let book = { 
+        Id = bookId
+        Title = title
+        Author = author
+        Genre = genre
+        IsBorrowed = false
+        BorrowDate = None 
+    }
+    library <- library.Add(book.Id, book)
+    book
+
