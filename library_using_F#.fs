@@ -45,3 +45,11 @@ let borrowBook id =
         library <- library.Add(id, updatedBook)
         true
     | _ -> false
+
+let returnBook id =
+    match library.TryFind id with
+    | Some book when book.IsBorrowed -> 
+        let updatedBook = { book with IsBorrowed = false; BorrowDate = None }
+        library <- library.Add(id, updatedBook)
+        true
+    | _ -> false
