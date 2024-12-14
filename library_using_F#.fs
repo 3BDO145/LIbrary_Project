@@ -36,3 +36,12 @@ let addBook title author genre =
 
 let searchBooks (title : string) =
     library |> Map.filter (fun _ book -> book.Title.ToLower().Contains(title.ToLower()))
+
+
+let borrowBook id =
+    match library.TryFind id with
+    | Some book when not book.IsBorrowed -> 
+        let updatedBook = { book with IsBorrowed = true; BorrowDate = Some DateTime.UtcNow }
+        library <- library.Add(id, updatedBook)
+        true
+    | _ -> false
