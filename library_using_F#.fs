@@ -34,3 +34,5 @@ let addBook title author genre =
     library <- library.Add(book.Id, book)
     book
 
+let searchBooks (title : string) =
+    library |> Map.filter (fun _ book -> book.Title.ToLower().Contains(title.ToLower()))
